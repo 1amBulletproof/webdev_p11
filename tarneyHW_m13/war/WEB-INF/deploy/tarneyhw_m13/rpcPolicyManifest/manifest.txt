@@ -1,0 +1,3 @@
+# Module tarneyhw_m13
+# RPC service class, partial path of RPC policy file
+com.brandontarney.client.MyService, 00544CD8F71550E527BD7D9CCC0E73E0.gwt.rpc

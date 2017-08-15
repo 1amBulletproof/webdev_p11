@@ -1,0 +1,2 @@
+serviceClass: com.brandontarney.client.MyService
+path: 00544CD8F71550E527BD7D9CCC0E73E0.gwt.rpc
