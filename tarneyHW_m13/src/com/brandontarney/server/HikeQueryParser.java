@@ -15,13 +15,13 @@ public class HikeQueryParser {
         HIKE hikeEnum;
         String hikeEnumStr = hikeString.toUpperCase();
         switch (hikeEnumStr) {
-            case "HELLROARING":
+            case "HELLROARING PLATEAU":
                 hikeEnum = HIKE.HELLROARING;
                 break;
-            case "GARDINER":
+            case "GARDINER LAKE":
                 hikeEnum = HIKE.GARDINER;
                 break;
-            case "BEATEN":
+            case "THE BEATEN PATH":
                 hikeEnum = HIKE.BEATEN;
                 break;
             default:

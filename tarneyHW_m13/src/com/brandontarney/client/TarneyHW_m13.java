@@ -36,7 +36,7 @@ public class TarneyHW_m13 implements EntryPoint {
 	private static final String SERVER_ERROR = "An error occurred while "
 			+ "attempting to contact the server. Please check your network " + "connection and try again.";
 
-	private static final String[] HIKES = { "HELLROARING PLATEAU", "THE BEATEN PATH", "GARDINER LAKE" };
+	private static final String[] HIKES = { "HELLROARING PLATEAU", "GARDINER LAKE", "THE BEATEN PATH"};
 	/**
 	 * Create a remote service proxy to talk to the server-side Greeting
 	 * service.
@@ -146,7 +146,9 @@ public class TarneyHW_m13 implements EntryPoint {
 				
 				String hikeStr = hikeListBox.getSelectedItemText();
 
-				String dateStr = dateBox.getValue().toString();
+				Date date = dateBox.getValue();
+				String dateStr = DateTimeFormat.getFormat("MM/dd/yyy").format(date);
+				//String dateStr = dateBox.getValue().toString();
 				
 				String durationStr = durationField.getText();
 				String partySizeStr = partySizeField.getText();

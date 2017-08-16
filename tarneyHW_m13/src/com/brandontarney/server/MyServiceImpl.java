@@ -13,44 +13,42 @@ public class MyServiceImpl extends RemoteServiceServlet implements MyService {
 	public String greetServer(String hikeStr, String dateStr, String durationStr, String partySizeStr)
 			throws IllegalArgumentException {
 
-		//String serverInfo = getServletContext().getServerInfo();
-		//String userAgent = getThreadLocalRequest().getHeader("User-Agent");
-
-		// Escape data from the client to avoid cross-site script
-		// vulnerabilities.
-		// input = escapeHtml(input);
-		// userAgent = escapeHtml(userAgent);
-
-		// TODO NORMAL LOGIC
-		/*
-		double hikeCost = 0.0;
+		int[] monthDayYear = new int[3];
+		double hikeCost = -1;
+		String details = "";
+		
 		try {
+			int partySizeInt = Integer.parseInt(partySizeStr);
+
 			Rates.HIKE hike = HikeQueryParser.getHike(hikeStr);
 			Rates rate = new Rates(hike);
 
-			hikeCost = partySizeInt * rate.getCost();
+			int durationInt = Integer.parseInt(durationStr);
+			rate.setDuration(durationInt);
+
+			monthDayYear = HikeQueryParser.getDate(dateStr);
+			int month = monthDayYear[0];
+			int day = monthDayYear[1];
+			int year = monthDayYear[2];
+
+			BookingDay bookingDay = new BookingDay(year, month, day);
+			rate.setBeginDate(bookingDay);
+
+			String valid = "";
+			if (rate.isValidDates()) {
+				hikeCost = rate.getCost() * partySizeInt;
+				valid = "VALID";
+			} else {
+				hikeCost = -1;
+				valid = "INVALID";
+			}
+			details = (valid + " COST = $" + Double.toString(hikeCost) + "\n\n" + "Details: " + rate.getDetails()
+					+ " \nHIKE: " + hikeStr + "\nDATE: " + dateStr + "\nDURATION: " + durationStr + "\nPEOPLE: "
+					+ partySizeStr);
 		} catch (BadQueryStringException exception) {
-			return "BAD QUERY STRING";
+			return "BAD QUERY STRING: " + exception.getMessage();
 		}
-
-		 * int[] monthDayYear = HikeQueryParser.getDate(date); int month =
-		 * monthDayYear[0]; int day = monthDayYear[1]; int year =
-		 * monthDayYear[2];
-		 * 
-		 * 
-		 * Rates rate = this.getRate(hike, duration, year, month, day);
-		 * 
-		 * if (rate.isValidDates()) { int totalCost = rate.getCost() *
-		 * partySize; //FORMAT RATES as HTML & RETURN
-		 * System.out.println("rate IS valid"); return formatHtmlResponse(rate,
-		 * "VALID HIKE RATE"); } else { //FORMAT ERROR/RATES as HTML & RETURN
-		 * System.out.println("rate is INvalid"); return
-		 * formatHtmlResponse(rate, "INVALID HIKE RATE"); }
-		 * 
-		 */
-
-		//return "HIKE COST = " + Double.toString(hikeCost);
-		return "HIKE COST = ";
+		return details;
 	}
 
 	/**

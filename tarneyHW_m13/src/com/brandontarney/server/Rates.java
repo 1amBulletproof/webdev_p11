@@ -156,7 +156,7 @@ public class Rates {
      */
     public boolean isValidDates() {
         if (!this.validDuration) {
-            details = "invalid duration for this hike (see table below)";
+            details = "invalid duration for this hike";
             return false;
         } else if (beginDate == null
                 || endDate == null) {
