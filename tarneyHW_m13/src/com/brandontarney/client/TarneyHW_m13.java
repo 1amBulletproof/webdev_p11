@@ -50,9 +50,6 @@ public class TarneyHW_m13 implements EntryPoint {
 	public void onModuleLoad() {
 		final Button sendButton = new Button("Send");
 
-		final TextBox nameField = new TextBox();
-		nameField.setText("Enter Name");
-
 		final Label hikeLabel = new Label();
 		hikeLabel.setText("Hike");
 		final ListBox hikeListBox = new ListBox(false);
@@ -81,7 +78,6 @@ public class TarneyHW_m13 implements EntryPoint {
 
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
-		RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("nameFieldContainer").add(hikeLabel);
 		RootPanel.get("nameFieldContainer").add(hikeListBox);
 		RootPanel.get("nameFieldContainer").add(dateLabel);
@@ -92,11 +88,6 @@ public class TarneyHW_m13 implements EntryPoint {
 		RootPanel.get("nameFieldContainer").add(partySizeField);
 		RootPanel.get("nameFieldContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
-
-		// Focus the cursor on the name field when the app loads
-		nameField.setFocus(true);
-		nameField.selectAll();
-
 
 		// Create the popup dialog box
 

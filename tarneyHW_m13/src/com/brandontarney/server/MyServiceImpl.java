@@ -16,16 +16,13 @@ public class MyServiceImpl extends RemoteServiceServlet implements MyService {
 		int[] monthDayYear = new int[3];
 		double hikeCost = -1;
 		String details = "";
-		
+
 		try {
 			int partySizeInt = Integer.parseInt(partySizeStr);
 
 			Rates.HIKE hike = HikeQueryParser.getHike(hikeStr);
 			Rates rate = new Rates(hike);
-
-			int durationInt = Integer.parseInt(durationStr);
-			rate.setDuration(durationInt);
-
+			
 			monthDayYear = HikeQueryParser.getDate(dateStr);
 			int month = monthDayYear[0];
 			int day = monthDayYear[1];
@@ -33,6 +30,9 @@ public class MyServiceImpl extends RemoteServiceServlet implements MyService {
 
 			BookingDay bookingDay = new BookingDay(year, month, day);
 			rate.setBeginDate(bookingDay);
+
+			int durationInt = Integer.parseInt(durationStr);
+			rate.setDuration(durationInt);
 
 			String valid = "";
 			if (rate.isValidDates()) {
@@ -42,11 +42,13 @@ public class MyServiceImpl extends RemoteServiceServlet implements MyService {
 				hikeCost = -1;
 				valid = "INVALID";
 			}
-			details = (valid + " COST = $" + Double.toString(hikeCost) + "\n\n" + "Details: " + rate.getDetails()
-					+ " \nHIKE: " + hikeStr + "\nDATE: " + dateStr + "\nDURATION: " + durationStr + "\nPEOPLE: "
+			details = ("<b>" + valid + " COST = $" + Double.toString(hikeCost) + "</b><br>Details: " + rate.getDetails()
+					+ "<br>HIKE: " + hikeStr + "<br>DATE: " + dateStr + "<br>DURATION: " + durationStr + "<br>PEOPLE: "
 					+ partySizeStr);
 		} catch (BadQueryStringException exception) {
 			return "BAD QUERY STRING: " + exception.getMessage();
+		} catch (NumberFormatException exception) {
+			return "BAD NUMBER FORMAT: " + exception.getMessage();
 		}
 		return details;
 	}
